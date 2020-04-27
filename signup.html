@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sign Up!</title>
+</head>
+<body>
+	<h1> Signing Up! </h1> 
+	<form method = "GET" action = "http://localhost:8080/">
+		Username: <input type="text/html" name = 'username' id="username" placeholder="Username"> <br>
+		Password: <input type="password" name = 'password' id="password" placeholder="Password"> <br>
+		Confirm Password <input type="text/html" name = 'confirm' id="confirm" placeholder="Password" 
+		onchange="authenticate()"> <br>
+		<input type='submit' value = "Sign up"> </button> <br>
+	</form>
+	<div id = "message"> </div>
+	<script lang="javascript">
+		function authenticate() {
+			var password = document.getElementById("password").value;
+			var confirm = document.getElementById("confirm").value;
+			var message = document.getElementById("message");
+			if (password == confirm) {
+				message.innerHTML = "Great! You're all signed up. Click here to go to your personalized bookshelf"
+			} else {
+				message.innerHTML = "Your passwords do not match. Make them match before proceeding";
+			}
+		}
+	</script>	
+</body>
+</html>
