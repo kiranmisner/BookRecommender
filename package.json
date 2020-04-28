@@ -1,0 +1,28 @@
+{
+  "name": "bookrecommender",
+  "version": "1.0.0",
+  "description": "Comp 20 final project",
+  "main": "bookserver.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.5.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiranmisner/BookRecommender.git"
+  },
+  "author": "Brogrammers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kiranmisner/BookRecommender/issues"
+  },
+  "homepage": "https://github.com/kiranmisner/BookRecommender#readme"
+}
