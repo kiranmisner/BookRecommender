@@ -4,12 +4,16 @@
   "description": "Comp 20 final project",
   "main": "bookserver.js",
   "dependencies": {
+    "express": "^4.17.1",
     "mongodb": "^3.5.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bookserver.js"
+    "start": "node index",
+    "dev" : "nodemon index"
   },
   "repository": {
     "type": "git",
