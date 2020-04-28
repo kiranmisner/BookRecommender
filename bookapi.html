@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>Google Books API</title>
+    <style>
+        body {
+            padding: 1%;
+        }
+        input[type=text] {padding: 5px 10px; font-size: 15px; width: 300px;}
+        button {cursor: pointer; border: solid; border-width: 2px; color: #333; padding: 5px 10px; text-align: left; font-size: 15px; cursor: pointer; text-decoration: none;}
+    </style>
+  </head>
+  <body>
+        <div>
+            <h1>Let's try gettin that data from the API</h1>
+                <form onsubmit="callAPI(event.preventDefault())">
+                <input type="text" id="book" name="book" placeholder="Enter title, keyword, or author...">
+                <button> Search</button> 
+                <br><br>
+                <div id="content"></div>
+            </form>
+        </div>
+
+    <script>
+
+        function callAPI() {
+            document.getElementById("content").innerHTML = "";
+            request = new XMLHttpRequest();
+
+            request.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+
+                for (let i = 0; i < 5; i++) {
+                    var item = data.items[i];
+                    console.log(data.items[i])
+                    var title = item.volumeInfo.title;
+                    var author = item.volumeInfo.authors;
+                    var genre = item.volumeInfo.categories;
+                    var description = item.volumeInfo.description;  
+                    var readOnline = item.accessInfo.webReaderLink;
+                    document.getElementById("content").innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
+                 }
+                }
+          
+            }
+            request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=${document.getElementById("book").value}`, true);
+            request.send()
+        }
+      
+    </script>
+
+
+  </body>
+</html>
