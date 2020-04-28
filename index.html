@@ -1,16 +1,23 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	l<!-- inks to include so we can use the bootstrap styling! -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	<meta charset="UTF-8">
+
 	<title>BookSearch</title>
 </head>
 <body>
+  <!-- Need to find way to align everything right (or wherever we want our sign in page) -->
+  <div>
+  		<form class="form-inline" action="/action_page.php"> 
+    		<input type="email" class="form-control" id="email" placeholder="Enter Username" name="email"> 
+    		<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd"> 
+    		<button type="submit" class="btn btn-danger">Login</button> 
+    		<button type="button" class="btn btn-primary">Sign Up!</button> 
+  		</form> 
+  </div>
 	<h1 style = "text-align: center"> Book Recommendations </h1>
-	<form method = "GET" action = "http://localhost:8080/"> 
-		Username: <input type="text/html" name="username" placeholder="Username"> <br>
-		Password: <input type="password" name="password" placeholder="Password"> <br>
-		<input type = "submit" value = "Sign in"> <br>
-		Don't have an account? Sign up <a href="signup.html">here</a>.
-	</form>
 </body>
 </html>
