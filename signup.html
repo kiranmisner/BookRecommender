@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	l<!-- inks to include so we can use the bootstrap styling! -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	<meta charset="UTF-8">
+
 	<meta charset="UTF-8">
 	<title>Sign Up!</title>
 </head>
 <body>
-	<h1> Signing Up! </h1> 
+	<h1 style = "text-align: center"> Signing Up! </h1> 
+	<br> <br>
+	<!-- Need to find a way to alisgn the form put in center in a box! -->
 	<form method = "GET" action = "http://localhost:8080/">
 		Username: <input type="text/html" name = 'username' id="username" placeholder="Username"> <br>
 		Password: <input type="password" name = 'password' id="password" placeholder="Password"> <br>
-		Confirm Password <input type="text/html" name = 'confirm' id="confirm" placeholder="Password" 
+		Confirm Password <input type="password" name = 'confirm' id="confirm" placeholder="Password" 
 		onchange="authenticate()"> <br>
-		<input type='submit' value = "Sign up"> </button> <br>
+		<input type = "hidden" name = 'site' id = 'site' value = 'signup'>
+		<input type='submit' class="btn btn-primary" value = "Sign up!"> </button> <br>
 	</form>
 	<div id = "message"> </div>
 	<script lang="javascript">
