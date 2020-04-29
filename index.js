@@ -1,5 +1,3 @@
-// NEW TEST SERVER ARYAN IS MAKING
-
 const express = require('express');
 const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
@@ -56,9 +54,30 @@ app.get('/mongo', (req, res) => {
 
 app.post('/', (req, res) => {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  console.log(req.body)
-  res.write('true');
-  res.end()
+  console.log(req.body);
+  MongoClient.connect(url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }, function(err, client) {
+        if (err) {console.log(err); return;}
+        console.log("Connected successfully to server");
+        var dbo = client.db("BookRecommender");
+        dbo.collection("Users").findOne({ $and: [{username: req.body.u}, {password: req.body.p}]} , (err, result) => {
+            console.log("searching...");
+            /* If result is null (not in database) tell the user that and return */
+            if (result == null) {
+                console.log("not found");
+                res.write('false');
+                res.end();
+                return;
+            } else {
+              console.log("found");
+              res.write('true');
+              res.end();
+              return;
+            }
+        });
+    });
 })
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
