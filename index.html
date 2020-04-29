@@ -1,10 +1,10 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- links to include so we can use the bootstrap styling! -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
+	<!-- links to include so we can use the bootstrap styling! -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
@@ -64,6 +64,52 @@
     border-radius: 50%;
     color:white;
     text-decoration:none;
+    }
+
+    /*style for the grid*/
+    .row {
+      display: flex;
+    }
+
+    .column {
+      flex: 33.33%;
+      padding: 5px;
+    }
+
+    .column img {
+      height: 400px ;
+      width: auto;
+    }
+
+    /* Container needed to position the button. Adjust the width as needed */
+    .imgthree {
+      position: relative;
+    }
+
+    /* Make the image responsive */
+/*    .imgthree img {
+      width: 100%;
+      height: auto;
+    }*/
+
+    /* Style the button and place it in the middle of the container/image */
+    .imgthree .btn {
+      position: absolute;
+      top: 50%;
+      left: 90%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      background-color: #555;
+      color: white;
+      font-size: 16px;
+      padding: 12px 24px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;   
+    }
+
+    .container .btn:hover {
+      background-color: black;
     }
 
 </style>
@@ -127,7 +173,7 @@
 </div>
 	
 <h1 style = "text-align: center"> Book Recommendations </h1>
-<br> <br> 
+<br> <br>  
 
 
 <!-- SEARCH BAR -->
@@ -139,10 +185,81 @@
     </div>
   </div>
 </div>
+<br> <br>
 <div id = "content">
 </div>
 
-<script>
+<br> <br> <hr style = "border-color: black">
+<div id = "grid1">
+  <h2 style = "text-align: center;"> Fiction </h2>
+  <div class="row">
+    <div class="column">
+      <img id = "photo1" src="campuscenter.jpg" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+      <img id = "photo2" src="ocho.jpg" alt="Forest" style="width:100%">
+    </div>
+    <div class="column">
+      <div class = "imgthree">
+        <img id = "photo3" src="ja.jpg" alt="Mountains" style="width:100%">
+        <button class="btn" id = "fiction" onclick = "changeset(1,this.id)">
+            More!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr style = "border-color: black">
+
+
+<div id = "grid2">
+  <h2 style = "text-align: center;"> Romance </h2>
+  <div class="row">
+    <div class="column">
+      <img id = "photo4" src="campuscenter.jpg" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+      <img id = "photo5" src="ocho.jpg" alt="Forest" style="width:100%">
+    </div>
+    <div class="column">
+      <div class = "imgthree">
+        <img id = "photo6" src="ja.jpg" alt="Mountains" style="width:100%">
+        <button class="btn" id = "romance" onclick = "changeset(4,this.id)">
+            More!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr style = "border-color: black">
+
+<div id = "grid3">
+  <h2 style = "text-align: center;"> Mystery </h2>
+  <div class="row">
+    <div class="column">
+      <img id = "photo7" src="campuscenter.jpg" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+      <img id = "photo8" src="ocho.jpg" alt="Forest" style="width:100%">
+    </div>
+    <div class="column">
+      <div class = "imgthree">
+        <img id = "photo9" src="ja.jpg" alt="Mountains" style="width:100%">
+        <button class="btn" id = "mystery" onclick = "changeset(7,this.id)">
+            More!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr style = "border-color: black">
+
+
+
+<script lang = "javascript">
         /* allows for search via the enter key */
         var input = document.getElementById("book");
         input.addEventListener("keyup", function(event) {
@@ -178,6 +295,30 @@
             request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=${document.getElementById("book").value}`, true);
             request.send()
         }
+
+        function changeset(k,subject) {
+          request = new XMLHttpRequest();
+          request.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+                 var data = JSON.parse(this.responseText);
+                 var random = Math.floor((Math.random() * 7));
+                 for (j = random; j < random + 3; j++) {
+                   var item = data.items[j];
+                   var imageThumb = item.volumeInfo.imageLinks.thumbnail;
+                   currentphoto = "photo" + k;
+                   document.getElementById(currentphoto).src = imageThumb;
+                   k++;
+                 }
+                 return;        
+               }
+             }
+
+             request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:${subject}`,
+             true);
+             request.send();
+         }
+
+
     </script>
 </body>
 </html>
