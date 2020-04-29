@@ -1,24 +1,183 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!-- links to include so we can use the bootstrap styling! -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	<meta charset="UTF-8">
+  <!-- links to include so we can use the bootstrap styling! -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
-	<title>BookSearch</title>
+  <meta charset="UTF-8">
+	<title>Recommendr</title>
+
+  <!-- Style for search bar -- should be moved to external style sheet -->
+  <style type="text/css">
+    body,html{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #f5f5dc !important;
+    }
+
+    .searchbar{
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    width:100%;
+    background-color: #353b48;
+    border-radius: 30px;
+    padding: 10px;
+    }
+
+    .search_input{
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_input{
+    padding: 0 10px;
+    width: 450px;
+    caret-color:red;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_icon{
+    background: white;
+    color: #e74c3c;
+    }
+
+    .search_icon{
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    text-decoration:none;
+    }
+
+</style>
 </head>
-
 <body>
-  <!-- Need to find way to align everything right (or wherever we want our sign in page) -->
-  <div>
-  		<form class="form-inline" action="/action_page.php"> 
-    		<input type="email" class="form-control" id="email" placeholder="Enter Username" name="email"> 
-    		<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd"> 
-    		<button type="submit" class="btn btn-danger">Login</button> 
-    		<button type="button" class="btn btn-primary">Sign Up!</button> 
-  		</form> 
+<!-- nav bar -->
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Recommendr</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Recommendr</a></li>
+      <li><a href="#">My BookShelf</a></li>
+      <li><a href="#">Sign Up</a></li>
+      <li><a href="#">Nice one</a></li>
+    </ul>
+    <ul class="nav navbar-nav" style="float: right; padding-top:1%; padding-bottom: 1%">
+      <div class = "float-left">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Login </button>
+      </div>
+    </ul>
   </div>
-	<h1 style = "text-align: center"> Book Recommendations </h1>
+</nav>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title" style = "text-align: center"> Login</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+                <div class="container">
+                <form action = "http://localhost:8080">
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username" required>
+                    <br>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" required> <br>
+
+                    <button type="submit">Login</button> <br>
+                </form>
+              </div>
+        </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+	
+<h1 style = "text-align: center"> Book Recommendations </h1>
+<br> <br> 
+
+
+<!-- SEARCH BAR -->
+<div class="container h-100">
+  <div class="d-flex justify-content-center h-100">
+    <div class="searchbar">
+      <input class="search_input" type="text" id="book" placeholder="Enter your bookname..">
+          <a href="#" id = "searcher" onclick="callAPI()" class="search_icon">Go!<i class="fas fa-search"></i></a>
+    </div>
+  </div>
+</div>
+<div id = "content">
+</div>
+
+<script>
+        /* allows for search via the enter key */
+        var input = document.getElementById("book");
+        input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+          event.preventDefault();
+          document.getElementById("searcher").click();
+          }
+        });
+
+        /* finds and prints the correct information for the first 5 books 
+           found using the Google Books API */
+        function callAPI() {
+            document.getElementById("book")
+            document.getElementById("content").innerHTML = "";
+            request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+                    console.log(JSON.stringify(this.responseText));
+
+                for (let i = 0; i < 5; i++) {
+                    var item = data.items[i];
+                    console.log(data.items[i])
+                    var title = item.volumeInfo.title;
+                    var author = item.volumeInfo.authors;
+                    var genre = item.volumeInfo.categories;
+                    var description = item.volumeInfo.description;  
+                    var readOnline = item.accessInfo.webReaderLink;
+                    document.getElementById("content").innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
+                 }
+                }
+            }
+            request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=${document.getElementById("book").value}`, true);
+            request.send()
+        }
+    </script>
 </body>
 </html>
