@@ -10,13 +10,51 @@
 	<meta charset="UTF-8">
 	<title>Sign Up!</title>
 	<style type="text/css">
-		span.border {
-    		display: inline-block;
-    		border-style: solid;
-    		border-color: black !important;
-    		padding-bottom: 100px
-    		margin: 100px;
- 		}
+		body, html  {
+		    background-color: #F3ECE0;
+		    height: 100%;
+		    margin: 0;
+		    font-family: Times, Garamond, Helvetica, Arial;
+		}
+		h1 {
+		    text-align: center;
+		    font-size: 42px;
+		    font-family: Times, Garamond, Helvetica, Arial;
+		}
+		.border {
+		    border-style: solid;
+		    border-color: #957F5A;
+		    flex: 50%; 
+		    padding: 40px; 
+		    margin-left: 33%; 
+		    margin-right: 33%; 
+		    border-width: 2px
+		}
+		input[type=text], input[type=password] {
+		    padding: 5px 10px; 
+		    font-size: 15px; 
+		    width: 200px;
+		}
+		input[type=submit] {
+		    cursor: pointer; 
+		    border: solid 1px; 
+		    border-width: 2px; 
+		    color: #69583C; 
+		    padding: 5px 10px; 
+		    text-align: left; 
+		    font-size: 20px; 
+		    cursor: pointer; 
+		    text-decoration: none;
+		    background-color: #B9B2A8;
+		    border-color: #69583C;
+		}
+		input[type=submit]:hover {
+		    background-color: #69583C; 
+		    color: #B9B2A8; 
+		    border: solid 1px; 
+		    border-color: #B9B2A8;
+		    border-width: 2px; 
+		}
 	</style>
 
 </head>
@@ -46,16 +84,15 @@
 
 
 
-
-	<h1 style = "text-align: center"> Signing Up! </h1> 
+<br>
+	<h1>Sign up here:</h1> 
 	<br> <br>
 	<div class = "text-center">
-			<form method = "GET" action = "http://localhost:8080/">
-				Username: <input type="text/html" name = 'username' id="username" placeholder="Username" required> <br>
-				Password: <input type="password" name = 'password' id="password" placeholder="Password" required> <br>
-				Confirm Password <input type="password" name = 'confirm' id="confirm" placeholder="Password" 
-				onchange="authenticate()" required> <br>
-				<input type='submit' class="btn btn-primary" value = "Sign up!"> </button> <br>
+			<form method = "GET" action = "http://localhost:8080/" class="border" style="font-size: 20px;">
+				Username: <input type="text" name = 'username' id="username" autofocus="autofocus" required> <br> <br>
+				Password: <input type="password" name = 'password' id="password" required> <br> <br>
+				Confirm Password: <input type="password" name = 'confirm' id="confirm" onchange="authenticate()" required> <br> <br>
+				<input type='submit' class="btn btn-primary" value = "Sign up!"> <br>
 			</form>
 		<div id = "message"> </div>
 	</div>
@@ -70,7 +107,7 @@
 				message.innerHTML = "Your passwords do not match. Make them match before proceeding";
 			}
 		}
-	</script>	
+	</script>		
 
 </body>
 </html>
