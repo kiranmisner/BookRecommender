@@ -1,27 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	l<!-- inks to include so we can use the bootstrap styling! -->
+	<!-- inks to include so we can use the bootstrap styling! -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	<meta charset="UTF-8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 	<meta charset="UTF-8">
 	<title>Sign Up!</title>
+	<style type="text/css">
+		span.border {
+    		display: inline-block;
+    		border-style: solid;
+    		border-color: black !important;
+    		padding-bottom: 100px
+    		margin: 100px;
+ 		}
+	</style>
+
 </head>
 <body>
+	<nav class="navbar navbar-inverse">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+      			<a class="navbar-brand" href="#">Recommendr</a>
+    		</div>
+    		<ul class="nav navbar-nav">
+				<li><a href="index.html">Recommendr</a></li>
+      			<li><a href="">My BookShelf</a></li>
+      			<li class="active">
+      				<a href="signup.html">Sign Up</a>
+				</li>	
+<!--       			<li><a href="signup.html">Sign Up</a></li> -->
+      			<li><a href="#">Currently blank</a></li>
+    		</ul>
+    		<ul class="nav navbar-nav" style="float: right; padding-top:1%; padding-bottom: 1%">
+      			<div class = "float-left">
+        				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        				Login </button>
+      			</div>
+    		</ul>
+  		</div>
+	</nav>
+
+
+
+
 	<h1 style = "text-align: center"> Signing Up! </h1> 
 	<br> <br>
-	<!-- Need to find a way to alisgn the form put in center in a box! -->
-	<form method = "GET" action = "http://localhost:8080/">
-		Username: <input type="text/html" name = 'username' id="username" placeholder="Username"> <br>
-		Password: <input type="password" name = 'password' id="password" placeholder="Password"> <br>
-		Confirm Password <input type="password" name = 'confirm' id="confirm" placeholder="Password" 
-		onchange="authenticate()"> <br>
-		<input type = "hidden" name = 'site' id = 'site' value = 'signup'>
-		<input type='submit' class="btn btn-primary" value = "Sign up!"> </button> <br>
-	</form>
-	<div id = "message"> </div>
+	<div class = "text-center">
+			<form method = "GET" action = "http://localhost:8080/">
+				Username: <input type="text/html" name = 'username' id="username" placeholder="Username" required> <br>
+				Password: <input type="password" name = 'password' id="password" placeholder="Password" required> <br>
+				Confirm Password <input type="password" name = 'confirm' id="confirm" placeholder="Password" 
+				onchange="authenticate()" required> <br>
+				<input type='submit' class="btn btn-primary" value = "Sign up!"> </button> <br>
+			</form>
+		<div id = "message"> </div>
+	</div>
 	<script lang="javascript">
 		function authenticate() {
 			var password = document.getElementById("password").value;
@@ -34,5 +71,6 @@
 			}
 		}
 	</script>	
+
 </body>
 </html>
