@@ -3,8 +3,13 @@
 const express = require('express');
 const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
+const bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.raw());
+
 const PORT = process.env.PORT || 3000;
 
 // Connection URL
@@ -48,5 +53,12 @@ app.get('/mongo', (req, res) => {
         });
 })
 });
+
+app.post('/', (req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  console.log(req.body)
+  res.write('true');
+  res.end()
+})
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

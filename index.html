@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
   <meta charset="UTF-8">
@@ -112,6 +112,21 @@
       background-color: black;
     }
 
+    .float-left .btn.loggedin {
+    display: none;
+    z-index: -1;
+  }
+
+  .user-greeting {
+    display: none;
+    z-index: -1;
+  }
+  .user-greeting.loggedin {
+    display: block;
+    z-index: 1;
+  }
+
+
 </style>
 </head>
 <body>
@@ -124,13 +139,17 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Recommendr</a></li>
       <li><a href="#">My BookShelf</a></li>
-      <li><a href="#">Sign Up</a></li>
+      <!-- <li><a href="#">Sign Up</a></li> -->
       <li><a href="#">Nice one</a></li>
     </ul>
     <ul class="nav navbar-nav" style="float: right; padding-top:1%; padding-bottom: 1%">
       <div class = "float-left">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Login </button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+		Login </button>
+		<a href="/sign_up" class="btn btn-primary" >
+      Signup </a>
+    <div style="font-size: large; color: whitesmoke" class="user-greeting"> Hello 
+      <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/bookshelf">User</a> !</div>
       </div>
     </ul>
   </div>
@@ -150,15 +169,15 @@
         <!-- Modal body -->
         <div class="modal-body">
                 <div class="container">
-                <form action = "http://localhost:8080">
+                <form action = "/">
                     <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="username" required>
+                    <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
                     <br>
 
                     <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="password" required> <br>
+                    <input type="password" placeholder="Enter Password" name="psw" id="psw" required> <br>
 
-                    <button type="submit">Login</button> <br>
+                    <button type="button" onclick="onLogin()">Login</button> <br>
                 </form>
               </div>
         </div>
@@ -316,6 +335,28 @@
              request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:${subject}`,
              true);
              request.send();
+         }
+
+         function onLogin() {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", '/', true);
+
+          //Send the proper header information along with the request
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+          xhr.onreadystatechange = function() { // Call a function when the state changes.
+              if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                if(this.responseText === 'true') {
+                  $('.float-left .btn').addClass("loggedin")
+                  $('.float-left a').addClass("loggedin")
+                  $('.user-greeting').addClass("loggedin")
+                  $('#myModal').modal('hide')
+                  document.getElementById('uid').innerHTML = document.getElementById('uname').value;
+                }
+              }
+          }
+          xhr.send(`u=${document.getElementById('uname').value}&p=${document.getElementById('psw').value}`);
+
          }
 
 	// lol
