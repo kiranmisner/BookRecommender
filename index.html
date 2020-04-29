@@ -148,7 +148,8 @@
 		Login </button>
 		<a href="/sign_up" class="btn btn-primary" >
       Signup </a>
-    <div style="font-size: large; color: whitesmoke" class="user-greeting"> Hello <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/bookshelf">Dave</a> !</div>
+    <div style="font-size: large; color: whitesmoke" class="user-greeting"> Hello 
+      <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/bookshelf">User</a> !</div>
       </div>
     </ul>
   </div>
@@ -350,6 +351,7 @@
                   $('.float-left a').addClass("loggedin")
                   $('.user-greeting').addClass("loggedin")
                   $('#myModal').modal('hide')
+                  document.getElementById('uid').innerHTML = document.getElementById('uname').value;
                 }
               }
           }
