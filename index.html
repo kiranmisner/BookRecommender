@@ -148,7 +148,7 @@
 		Login </button>
 		<a href="/sign_up" class="btn btn-primary" >
       Signup </a>
-    <div style="color: whitesmoke" class="user-greeting"> Hello <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/bookshelf">Dave</a> !</div>
+    <div style="font-size: large; color: whitesmoke" class="user-greeting"> Hello <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/bookshelf">Dave</a> !</div>
       </div>
     </ul>
   </div>
@@ -170,11 +170,11 @@
                 <div class="container">
                 <form action = "/">
                     <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="username" required>
+                    <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
                     <br>
 
                     <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="password" required> <br>
+                    <input type="password" placeholder="Enter Password" name="psw" id="psw" required> <br>
 
                     <button type="button" onclick="onLogin()">Login</button> <br>
                 </form>
@@ -337,9 +337,24 @@
          }
 
          function onLogin() {
-           $('.float-left .btn').addClass("loggedin")
-           $('.float-left a').addClass("loggedin")
-           $('.user-greeting').addClass("loggedin")
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", '/', true);
+
+          //Send the proper header information along with the request
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+          xhr.onreadystatechange = function() { // Call a function when the state changes.
+              if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                if(this.responseText === 'true') {
+                  $('.float-left .btn').addClass("loggedin")
+                  $('.float-left a').addClass("loggedin")
+                  $('.user-greeting').addClass("loggedin")
+                  $('#myModal').modal('hide')
+                }
+              }
+          }
+          xhr.send(`u=${document.getElementById('uname').value}&p=${document.getElementById('psw').value}`);
+
          }
 
 	// lol

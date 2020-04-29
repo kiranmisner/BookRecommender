@@ -49,4 +49,10 @@ app.get('/mongo', (req, res) => {
 })
 });
 
+app.post('/', (req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.write('true');
+  res.end()
+})
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
