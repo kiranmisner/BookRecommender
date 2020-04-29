@@ -31,11 +31,11 @@ const findDocuments = function(db, callback) {
   }
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, '/htmlfiles/index.html'));
 })
 
 app.get('/sign_up', (req, res) => {
-    res.sendFile(path.join(__dirname, 'signup.html'));
+    res.sendFile(path.join(__dirname, '/htmlfiles/signup.html'));
 })
 
 app.get('/mongo', (req, res) => {
