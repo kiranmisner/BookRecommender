@@ -1,15 +1,15 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<!-- links to include so we can use the bootstrap styling! -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
+  <!-- links to include so we can use the bootstrap styling! -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
   <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
   <meta charset="UTF-8">
-	<title>Recommendr</title>
+  <title>Recommendr</title>
 
   <!-- Style for search bar -- should be moved to external style sheet -->
   <style type="text/css">
@@ -145,8 +145,8 @@
     <ul class="nav navbar-nav" style="float: right; padding-top:1%; padding-bottom: 1%">
       <div class = "float-left">
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
-		Login </button>
-		<a href="/sign_up" class="btn btn-primary" >
+    Login </button>
+    <a href="/sign_up" class="btn btn-primary" >
       Signup </a>
     <div style="font-size: large; color: whitesmoke" class="user-greeting"> Hello 
       <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/bookshelf">User</a> !</div>
@@ -190,7 +190,7 @@
     </div>
   </div>
 </div>
-	
+  
 <h1 style = "text-align: center"> Book Recommendations </h1>
 <br> <br>  
 
@@ -211,16 +211,16 @@
 <br> <br> <hr style = "border-color: black">
 <div id = "grid1">
   <h2 style = "text-align: center;"> Fiction </h2>
-  <div class="row">
-    <div class="column">
-      <img id = "photo1" src="campuscenter.jpg" alt="Snow" style="width:100%">
+  <div class="row" style="margin: 15px;">
+    <div class="column" style="text-align: center;">
+      <img id = "photo1" src="campuscenter.jpg" alt="Snow" style="width:175px; max-height: 275px;">
     </div>
-    <div class="column">
-      <img id = "photo2" src="ocho.jpg" alt="Forest" style="width:100%">
+    <div class="column" style="text-align: center;">
+      <img id = "photo2" src="ocho.jpg" alt="Forest" style="width:175px; max-height: 275px;">
     </div>
-    <div class="column">
+    <div class="column" style="text-align: center;">
       <div class = "imgthree">
-        <img id = "photo3" src="ja.jpg" alt="Mountains" style="width:100%">
+        <img id = "photo3" src="ja.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
         <button class="btn" id = "fiction" onclick = "changeset(1,this.id)">
             More!
         </button>
@@ -234,16 +234,16 @@
 
 <div id = "grid2">
   <h2 style = "text-align: center;"> Romance </h2>
-  <div class="row">
-    <div class="column">
-      <img id = "photo4" src="campuscenter.jpg" alt="Snow" style="width:100%">
+  <div class="row" style="margin: 15px;">
+    <div class="column" style="text-align: center;">
+      <img id = "photo4" src="campuscenter.jpg" alt="Snow" style="width:175px; max-height: 275px;">
     </div>
-    <div class="column">
-      <img id = "photo5" src="ocho.jpg" alt="Forest" style="width:100%">
+    <div class="column" style="text-align: center;">
+      <img id = "photo5" src="ocho.jpg" alt="Forest" style="width:175px; max-height: 275px;">
     </div>
-    <div class="column">
+    <div class="column" style="text-align: center;">
       <div class = "imgthree">
-        <img id = "photo6" src="ja.jpg" alt="Mountains" style="width:100%">
+        <img id = "photo6" src="ja.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
         <button class="btn" id = "romance" onclick = "changeset(4,this.id)">
             More!
         </button>
@@ -256,16 +256,16 @@
 
 <div id = "grid3">
   <h2 style = "text-align: center;"> Mystery </h2>
-  <div class="row">
-    <div class="column">
-      <img id = "photo7" src="campuscenter.jpg" alt="Snow" style="width:100%">
+  <div class="row" style="margin: 15px;">
+    <div class="column" style="text-align: center;">
+      <img id = "photo7" src="campuscenter.jpg" alt="Snow" style="width:175px; max-height: 275px;">
     </div>
-    <div class="column">
-      <img id = "photo8" src="ocho.jpg" alt="Forest" style="width:100%">
+    <div class="column" style="text-align: center;">
+      <img id = "photo8" src="ocho.jpg" alt="Forest" style="width:175px; max-height: 275px;">
     </div>
-    <div class="column">
+    <div class="column" style="text-align: center;">
       <div class = "imgthree">
-        <img id = "photo9" src="ja.jpg" alt="Mountains" style="width:100%">
+        <img id = "photo9" src="ja.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
         <button class="btn" id = "mystery" onclick = "changeset(7,this.id)">
             More!
         </button>
@@ -359,7 +359,7 @@
 
          }
 
-	// lol
+  // lol
     </script>
 </body>
 </html>
