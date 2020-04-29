@@ -3,6 +3,12 @@
 <head>
 	<title>My Bookshelf</title>
 	<meta charset="UTF-8">
+	<!-- links to include so we can use the bootstrap styling! -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
+  	<!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
+  	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 	<style>
 		body,html{
@@ -40,6 +46,13 @@
   </div>
 </nav>
 
+	<div>Add a book to your bookshelf here (please use the ISBN number):</div>
+	<input type="text" id="book" placeholder="ISBN number">
+	<button type="button" name="submit" onclick="addBook()">Submit</button>
+
+	<script language="javascript">
+		/* was gonna have a function to access database and add books here */
+	</script>
 	
 </body>
 
