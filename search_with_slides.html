@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <title>Google Books API</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            padding: 1%;
+        }
+        input[type=text] {padding: 5px 10px; font-size: 15px; width: 300px;}
+        button {cursor: pointer; border: solid; border-width: 2px; color: #333; padding: 5px 10px; text-align: left; font-size: 15px; cursor: pointer; text-decoration: none;}
+        .carousel-item{
+            height: auto;
+        }
+    </style>
+  </head>
+  <body>
+        <div>
+            <h1>Let's try gettin that data from the API</h1>
+                <form onsubmit="callAPI(event.preventDefault())">
+                <input type="text" id="book" name="book" placeholder="Enter title, keyword, or author...">
+                <button> Search</button> 
+                <br><br>
+                <div id="content"></div>
+            </form>
+        </div>
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width: 30%;margin: auto;">
+            <div class="carousel-inner">
+                <div class="carousel-item active" id="image1">
+                    <img class="d-block w-100" src="escape_artist.jpg">
+                </div>
+                <div class="carousel-item" id="image2">
+                    <img class="d-block w-100" src="21.png" alt="Second slide">
+                </div>
+                <div class="carousel-item" id="image3">
+                    <img class="d-block w-100" src="11.png" alt="Third slide">
+                </div>
+                <div class="carousel-item" id="image4">
+                    <img class="d-block w-100" src="33.png" alt="Second slide">
+                </div>
+                <div class="carousel-item" id="image5">
+                    <img class="d-block w-100" src="44.jpg" alt="Second slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+
+        function callAPI() {
+            document.getElementById("content").innerHTML = "";
+            request = new XMLHttpRequest();
+
+            request.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+
+                for (let i = 0; i < 5; i++) {
+                    var item = data.items[i];
+                    // console.log(data.items[i])
+                    var title = item.volumeInfo.title;
+                    var author = item.volumeInfo.authors;
+                    var genre = item.volumeInfo.categories;
+                    var description = item.volumeInfo.description;  
+                    var readOnline = item.accessInfo.webReaderLink;
+                    var imageThumb = item.volumeInfo.imageLinks.thumbnail;
+                    console.log(imageThumb);
+                    document.getElementById("content").innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`;
+                    document.getElementById("image"+(i+1)).innerHTML = "<img class='d-block w-100' src='"+imageThumb+"'>"
+                 }
+                }
+          
+            }
+            request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=${document.getElementById("book").value}`, true);
+            request.send()
+        }
+      
+    </script>
+
+
+  </body>
+</html>
