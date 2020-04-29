@@ -176,7 +176,7 @@
 
                     <label for="psw"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="psw" id="psw" required> <br>
-
+                    <div id = "faillogin" style="color:red"></div>
                     <button type="button" onclick="onLogin()">Login</button> <br>
                 </form>
               </div>
@@ -352,6 +352,9 @@
                   $('.user-greeting').addClass("loggedin")
                   $('#myModal').modal('hide')
                   document.getElementById('uid').innerHTML = document.getElementById('uname').value;
+                } else if (this.responseText === 'false') {
+                    console.log("false");
+                    document.getElementById("faillogin").innerHTML = "Password or Username incorrect. Try again.";
                 }
               }
           }
