@@ -206,12 +206,11 @@
                 request.onreadystatechange = function() {
                   if (request.readyState == 4 && request.status == 200) {
                     var info = request.responseText;
-                    var item = info.items[0];
-                    var title = item.volumeInfo.title;
-                    var author = item.volumeInfo.authors;
-                    var genre = item.volumeInfo.categories;
-                    var description = item.volumeInfo.description;  
-                    var readOnline = item.accessInfo.webReaderLink;
+                    var title = info.volumeInfo.title;
+                    var author = info.volumeInfo.authors;
+                    var genre = info.volumeInfo.categories;
+                    var description = info.volumeInfo.description;  
+                    var readOnline = info.accessInfo.webReaderLink;
                     document.getElementById('bookshelf').innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
                   }
                 }
