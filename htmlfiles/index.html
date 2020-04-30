@@ -215,14 +215,14 @@
   <h2 style = "text-align: center;"> Fiction </h2>
   <div class="row" style="margin: 15px;">
     <div class="column" style="text-align: center;">
-      <img id = "photo1" src="campuscenter.jpg" alt="Snow" style="width:175px; max-height: 275px;">
+      <img id = "photo1" src="orwell.jpg" alt="Snow" style="width:175px; max-height: 275px;"> 
     </div>
     <div class="column" style="text-align: center;">
-      <img id = "photo2" src="ocho.jpg" alt="Forest" style="width:175px; max-height: 275px;">
+      <img id = "photo2" src="lordofrings.jpg" alt="Forest" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
       <div class = "imgthree">
-        <img id = "photo3" src="ja.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
+        <img id = "photo3" src="mockingbird.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
         <button class="btn" id = "fiction" onclick = "changeset(1,this.id)">
             More!
         </button>
@@ -231,6 +231,21 @@
   </div>
 </div>
 
+<div id = "buttong1">
+  <div class="row" style="margin: 15px;">
+    <div class="column" style="text-align: center;">
+      <button id="button1" link = "" class = "btn btn-success" 
+      onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> 
+    </div>
+    <div class="column" style="text-align: center;">
+      <button id="button2" link = "" class = "btn btn-success" onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> 
+    </div>
+    <div class="column" style="text-align: center;">
+        <button id="button3" link = "" class = "btn btn-success" onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> 
+      </div>
+    </div>
+  </div>
+</div>
 <hr style = "border-color: black">
 
 
@@ -238,17 +253,32 @@
   <h2 style = "text-align: center;"> Romance </h2>
   <div class="row" style="margin: 15px;">
     <div class="column" style="text-align: center;">
-      <img id = "photo4" src="campuscenter.jpg" alt="Snow" style="width:175px; max-height: 275px;">
+      <img id = "photo4" src="notebook.jpg" alt="Snow" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
-      <img id = "photo5" src="ocho.jpg" alt="Forest" style="width:175px; max-height: 275px;">
+      <img id = "photo5" src="shades.jpg" alt="Forest" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
       <div class = "imgthree">
-        <img id = "photo6" src="ja.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
+        <img id = "photo6" src="fault.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
         <button class="btn" id = "romance" onclick = "changeset(4,this.id)">
             More!
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id = "buttong2">
+  <div class="row" style="margin: 15px;">
+    <div class="column" style="text-align: center;">
+      <button id="button4" link = "" class = "btn btn-success" onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> 
+    </div>
+    <div class="column" style="text-align: center;">
+      <button id="button5" link = "" class = "btn btn-success" onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> 
+    </div>
+    <div class="column" style="text-align: center;">
+        <button id="button6" link = "" class = "btn btn-success" onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> 
       </div>
     </div>
   </div>
@@ -260,17 +290,32 @@
   <h2 style = "text-align: center;"> Mystery </h2>
   <div class="row" style="margin: 15px;">
     <div class="column" style="text-align: center;">
-      <img id = "photo7" src="campuscenter.jpg" alt="Snow" style="width:175px; max-height: 275px;">
+      <img id = "photo7" src="gonegirl.jpg" alt="Snow" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
-      <img id = "photo8" src="ocho.jpg" alt="Forest" style="width:175px; max-height: 275px;">
+      <img id = "photo8" src="express.jpg" alt="Forest" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
       <div class = "imgthree">
-        <img id = "photo9" src="ja.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
+        <img id = "photo9" src="leechild.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
         <button class="btn" id = "mystery" onclick = "changeset(7,this.id)">
             More!
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id = "buttongs3">
+  <div class="row" style="margin: 15px;">
+    <div class="column" style="text-align: center;">
+      <button id="button7" link = "" class = "btn btn-success" onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> 
+    </div>
+    <div class="column" style="text-align: center;">
+      <button id="button8" link = "" class = "btn btn-success" onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> 
+    </div>
+    <div class="column" style="text-align: center;">
+        <button id="button9" link = "" class = "btn btn-success" onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> 
       </div>
     </div>
   </div>
@@ -292,20 +337,20 @@
       }
 
 
-function getCookie(cname) {
-  var name = cname + "=";
-  var ca = document.cookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
+      function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
   
         /* allows for search via the enter key */
         var input = document.getElementById("book");
@@ -351,15 +396,17 @@ function getCookie(cname) {
                  var random = Math.floor((Math.random() * 7));
                  for (j = random; j < random + 3; j++) {
                    var item = data.items[j];
+                   var booklink = item.selfLink;
                    var imageThumb = item.volumeInfo.imageLinks.thumbnail;
                    currentphoto = "photo" + k;
+                   currentbutton = "button" + k;
                    document.getElementById(currentphoto).src = imageThumb;
+                   document.getElementById(currentbutton).link = booklink;
                    k++;
                  }
                  return;        
                }
              }
-
              request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:${subject}`,
              true);
              request.send();
@@ -407,6 +454,39 @@ function getCookie(cname) {
                 } 
           }
           xhr.send();
+         }
+
+
+         /* initialize book links */
+        document.getElementById("button1").link = "https://www.googleapis.com/books/v1/volumes/kotPYEqx7kMC"; // 1984
+        document.getElementById("button2").link = "https://www.googleapis.com/books/v1/volumes/nkDmugAACAAJ" // lord of rings
+        document.getElementById("button3").link = "https://www.googleapis.com/books/v1/volumes/1vf9RJL3PpgC"; // mockingbird
+        document.getElementById("button4").link = "https://www.googleapis.com/books/v1/volumes/Vv0og8FYLc8C"; // the notebook
+        document.getElementById("button5").link = "https://www.googleapis.com/books/v1/volumes/GbVdlAEACAAJ"; // 50 shades
+        document.getElementById("button6").link = "https://www.googleapis.com/books/v1/volumes/UzqVUdEtLDwC"; // fault in our stars
+        document.getElementById("button7").link = "https://www.googleapis.com/books/v1/volumes/mmWODQAAQBAJ"; // gone girl
+        document.getElementById("button8").link = "https://www.googleapis.com/books/v1/volumes/fTDHU1p8KOkC"; // orient express
+        document.getElementById("button9").link = "https://www.googleapis.com/books/v1/volumes/ADiMDQAAQBAJ"; // jack reacher
+
+
+        function addtobookshelf(id) {
+            var usernamefinal = getCookie('username');
+            if (usernamefinal == "") {
+              alert("You do not have an account. Please sign up and sign in before being able to add a book.");
+              return;
+            }
+            var booklink = document.getElementById(id).link;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/addto', true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");""
+             xhr.onreadystatechange = function() { // Call a function when the state changes.
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                  if (this.responseText === 'true') {
+                    alert("The book has been added to your bookshelf");
+                  }
+                }
+             }
+             xhr.send(`uname=${usernamefinal}&link=${booklink}`);
          }
 
   // lol
