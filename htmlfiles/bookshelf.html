@@ -198,7 +198,7 @@
 				
 			   // ARRAY OF BOOK LINKS FOUND HERE
                console.log(this.responseText);
-               var books = this.responseText;
+               var books = JSON.parse(this.responseText);
                console.log(books.length);
                var i = 0;
                while (i != books.length) {
