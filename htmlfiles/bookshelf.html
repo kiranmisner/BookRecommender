@@ -105,7 +105,7 @@
 <div id="bookshelf">
 <button class="btn" onclick = "showbooks()">
 	Click to show your bookshelf!
-</button>
+</button><br>
 </div>
 
 
@@ -206,6 +206,7 @@
                 request.onreadystatechange = function() {
                   if (request.readyState == 4 && request.status == 200) {
                     var info = JSON.parse(request.responseText);
+                    console.log(info);
                     var title = info.volumeInfo.title;
                     var author = info.volumeInfo.authors;
                     var genre = info.volumeInfo.categories;
