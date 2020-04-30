@@ -2,11 +2,13 @@ const express = require('express');
 const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
 
@@ -36,6 +38,11 @@ app.get('/sign_up', (req, res) => {
     res.sendFile(path.join(__dirname, '/htmlfiles/signup.html'));
 })
 
+app.get('/logout', (req, res) => {
+    res.clearCookie('username');
+    res.send("done")
+})
+
 app.get('/mongo', (req, res) => {
      MongoClient.connect(url, {
         useNewUrlParser: true,
@@ -52,14 +59,15 @@ app.get('/mongo', (req, res) => {
 })
 });
 
-app.post('/', (req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
+app.post('/login', (req, res) => {
+//   res.writeHead(200, {'Content-Type': 'text/plain'});
   console.log(req.body);
   MongoClient.connect(url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }, function(err, client) {
         if (err) {console.log(err); return;}
+        
         console.log("Connected successfully to server");
         var dbo = client.db("BookRecommender");
         dbo.collection("Users").findOne({ $and: [{username: req.body.u}, {password: req.body.p}]} , (err, result) => {
@@ -72,12 +80,14 @@ app.post('/', (req, res) => {
                 return;
             } else {
               console.log("found");
+              res.cookie("username", req.body.u);
               res.write('true');
               res.end();
               return;
             }
         });
     });
+    
 })
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

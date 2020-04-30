@@ -112,7 +112,7 @@
       background-color: black;
     }
 
-    .float-left .btn.loggedin {
+    .float-left .btn.loggedin{
     display: none;
     z-index: -1;
   }
@@ -150,6 +150,8 @@
       Signup </a>
     <div style="font-size: large; color: whitesmoke" class="user-greeting"> Hello 
       <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/bookshelf">User</a> !</div>
+      <button style="display: inline" type="button" class="btn btn-danger hidden" id="logout" onclick="onLogOut()" >
+        Logout </button>
       </div>
     </ul>
   </div>
@@ -279,6 +281,32 @@
 
 
 <script lang = "javascript">
+      let uid = getCookie('username')
+      if (uid) {
+          $('.float-left .btn').addClass("loggedin")
+          $('.float-left a').addClass("loggedin")
+          $('.user-greeting').addClass("loggedin")
+          $('#logout').removeClass("hidden")
+          document.getElementById('uid').innerHTML = uid
+          document.cookie = '';
+      }
+
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+  
         /* allows for search via the enter key */
         var input = document.getElementById("book");
         input.addEventListener("keyup", function(event) {
@@ -339,7 +367,7 @@
 
          function onLogin() {
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", '/', true);
+          xhr.open("POST", '/login', true);
 
           //Send the proper header information along with the request
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -350,6 +378,7 @@
                   $('.float-left .btn').addClass("loggedin")
                   $('.float-left a').addClass("loggedin")
                   $('.user-greeting').addClass("loggedin")
+                  $('#logout').removeClass("hidden")
                   $('#myModal').modal('hide')
                   document.getElementById('uid').innerHTML = document.getElementById('uname').value;
                 } else if (this.responseText === 'false') {
@@ -360,6 +389,24 @@
           }
           xhr.send(`u=${document.getElementById('uname').value}&p=${document.getElementById('psw').value}`);
 
+         }
+
+         function onLogOut() {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", '/logout', true);
+
+          //Send the proper header information along with the request
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+          xhr.onreadystatechange = function() { // Call a function when the state changes.
+              if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                  $('.float-left .btn').removeClass("loggedin")
+                  $('.float-left a').removeClass("loggedin")
+                  $('.user-greeting').removeClass("loggedin")
+                  $('#logout').addClass("hidden")
+                } 
+          }
+          xhr.send();
          }
 
   // lol
