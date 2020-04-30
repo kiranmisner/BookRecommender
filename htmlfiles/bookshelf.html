@@ -108,6 +108,7 @@
 </button><br>
 </div>
 <div id="historical_bookshelf">
+  <br><br><hr><br><br>This is your recommended historical bookshelf!<br>
 </div>
 
 
@@ -214,7 +215,6 @@
         makeRequest(books[i]);
         i++;
       }
-      document.getElementById('historical_bookshelf').innerHTML += '<br><br><hr><br><br>This is your recommended historical bookshelf!<br>'
       findBooks(getInfo, books[0]);
     }
 
