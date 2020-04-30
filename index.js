@@ -90,4 +90,27 @@ app.post('/login', (req, res) => {
     
 })
 
+app.post('/addto', (req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  console.log(req.body);
+  MongoClient.connect(url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+  }, function(err, client) {
+    if (err) {console.log(err); return;}
+    console.log("Connected successfully to server");
+    var dbo = client.db("BookRecommender");
+    dbo.collection("Users").updateOne({username: req.body.uname} , {$addToSet: {bookshelf: req.body.link}},(err, result) => {
+       console.log("searching...");
+       if (err) {
+        res.write("false");
+        console.log(err); 
+        return;
+       }
+       console.log("Added");
+       res.write("true");
+    });
+  });
+})
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
