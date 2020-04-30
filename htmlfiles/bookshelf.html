@@ -244,8 +244,8 @@
       request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           var data = JSON.parse(this.responseText);
-          var genre = data.items[0].volumeInfo.categories;
-          var title = data.items[0].volumeInfo.title;
+          var genre = data.volumeInfo.categories;
+          var title = data.volumeInfo.title;
           console.log("genres received");
           console.log("genre is: " + genre[0]);
 
