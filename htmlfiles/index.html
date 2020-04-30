@@ -129,7 +129,7 @@
 
 </style>
 </head>
-<body>
+<body onload="loadBooks(getRomance)">
 <!-- nav bar -->
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -403,7 +403,83 @@
                  return;        
                }
              }
-             request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:${subject}`,
+             request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:${subject}&maxResults=40`,
+             true);
+             request.send();
+         }
+
+         function loadBooks(callback) {
+          request = new XMLHttpRequest();
+          request.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              var data = JSON.parse(this.responseText);
+              var random = Math.floor((Math.random() * 7));
+              var i = 1;
+                 for (j = random; j < random + 3; j++) {
+                   var item = data.items[j];
+                   var booklink = item.selfLink;
+                   var imageThumb = item.volumeInfo.imageLinks.thumbnail;
+                   currentphoto = "photo" + i;
+                   currentbutton = "button" + i;
+                   document.getElementById(currentphoto).src = imageThumb;
+                   document.getElementById(currentbutton).link = booklink;
+                   i++;
+
+                   callback(getMystery);
+                 }
+            }
+          }
+          request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:fiction&maxResults=40`,
+             true);
+             request.send();
+         }
+
+         function getRomance(callback) {
+          request = new XMLHttpRequest();
+          request.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              var data = JSON.parse(this.responseText);
+              var random = Math.floor((Math.random() * 7));
+              var i = 4;
+                 for (j = random; j < random + 3; j++) {
+                   var item = data.items[j];
+                   var booklink = item.selfLink;
+                   var imageThumb = item.volumeInfo.imageLinks.thumbnail;
+                   currentphoto = "photo" + i;
+                   currentbutton = "button" + i;
+                   document.getElementById(currentphoto).src = imageThumb;
+                   document.getElementById(currentbutton).link = booklink;
+                   i++;
+
+                   callback();
+                 }
+            }
+          }
+          request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:romance&maxResults=40`,
+             true);
+             request.send();
+         } 
+
+         function getMystery() {
+          request = new XMLHttpRequest();
+          request.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              var data = JSON.parse(this.responseText);
+              var random = Math.floor((Math.random() * 7));
+              var i = 7;
+                 for (j = random; j < random + 3; j++) {
+                   var item = data.items[j];
+                   var booklink = item.selfLink;
+                   var imageThumb = item.volumeInfo.imageLinks.thumbnail;
+                   currentphoto = "photo" + i;
+                   currentbutton = "button" + i;
+                   document.getElementById(currentphoto).src = imageThumb;
+                   document.getElementById(currentbutton).link = booklink;
+                   i++;
+                 }
+            }
+          }
+          request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:mystery&maxResults=40`,
              true);
              request.send();
          }
