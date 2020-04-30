@@ -213,12 +213,12 @@
                     var description = info.volumeInfo.description;  
                     var readOnline = info.accessInfo.webReaderLink;
                     document.getElementById('bookshelf').innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
+                    i++;
                   }
                 }
                 console.log(books[i]);
                 request.open("GET", `${books[i]}`, true);
                 request.send();
-                i++;
                }
 		  }
 		}
