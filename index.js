@@ -38,6 +38,28 @@ app.get('/sign_up', (req, res) => {
     res.sendFile(path.join(__dirname, '/htmlfiles/signup.html'));
 })
 
+app.post('/sign_up', (req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.write('true');
+    MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true},function(err, client) {
+          if (err) {
+            console.log(err);
+            return;
+          } 
+          console.log("Connected successfully to server");
+          var db = client.db("BookRecommender");
+          var collection = db.collection("Users");
+          var JSONobj = { username: req.body.u, password: req.body.p};
+          collection.insertOne(JSONobj, function(err, res) {
+            if (err) {
+              console.log(err);
+              return;
+            } 
+          }); 
+      });
+    console.log("new sign up entered!");
+})
+
 app.get('/logout', (req, res) => {
     res.clearCookie('username');
     res.send("done")
