@@ -212,6 +212,8 @@
                 makeRequest(books[i]);
                 i++;
               }
+      document.getElementById('bookshelf').innerHTML += '<br><br><hr><br><br>This is your recommended historical bookshelf!<br>'
+      findBooks(getInfo, books[0]);
     }
 
 
@@ -232,6 +234,86 @@
                 console.log(string);
                 request.open("GET", `${string}`, true);
                 request.send();
+    }
+
+    function findBooks(callback, book) 
+    {
+      request = new XMLHttpRequest();
+      console.log("made new request");
+
+      request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var data = JSON.parse(this.responseText);
+          var genre = data.items[0].volumeInfo.categories;
+          var title = data.items[0].volumeInfo.title;
+          console.log("genres received");
+          console.log("genre is: " + genre[0]);
+
+          callback(genre, title);
+        }
+
+      }
+
+      request.open("GET", `${book}`, true);
+      request.send();
+    }
+
+    function getInfo(genres, book_name)
+    {
+      request = new XMLHttpRequest();
+      console.log("made new callback request");
+
+      request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          data = JSON.parse(this.responseText);
+          console.log(data.items);
+          console.log(data.items.length);
+          reverseArray(data);
+          console.log(data);
+          var recommended = new Array();
+          var i = 0;
+          while (recommended.length != 5) {
+            var item = data.items[i];
+            var title = item.volumeInfo.title;
+            if (title == book_name) {
+              i++;
+              continue;
+            } else {
+              recommended.push(title);
+              var author = item.volumeInfo.authors;
+                        var genre = item.volumeInfo.categories;
+                        var description = item.volumeInfo.description;  
+                        var readOnline = item.accessInfo.webReaderLink;
+                        document.getElementById("bookshelf").innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
+                        i++;
+            }
+          }
+        }
+      }
+
+      request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=${genres[0]}&maxResults=40`, true);
+      request.send();
+    }
+
+    function reverseArray(data)
+    {
+      var length = data.items.length
+      for (var i = 0; i < length; i++) {
+        for (var j = i + 1; j < length; j++) {
+          if (data.items[i].volumeInfo.publishedDate == null || data.items[j].volumeInfo.publishedDate == null) {
+            continue;
+          }
+          var d1 = new Date(data.items[j].volumeInfo.publishedDate);
+          var d2 = new Date(data.items[i].volumeInfo.publishedDate);
+          
+          if (d1.getTime() < d2.getTime()) {
+            console.log("sorting array...");
+            var temp = data.items[i];
+            data.items[i] = data.items[j];
+            data.items[j] = temp;
+          }
+        }
+      }
     }
 
 	</script>
