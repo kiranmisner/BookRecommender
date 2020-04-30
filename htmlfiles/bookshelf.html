@@ -95,31 +95,20 @@
 	  </div>
 	</div>
   </div>
+
+<!-- SOMEONE STYLE THIS PLS    -->
 <div id="loggedout">
 	You are not logged in. Please log in or sign up to view and manage your bookshelf!
 </div>
 
+<!-- REMOVE THE BUTTON AND USE THE CODE TO GET THE LINKS AND SHOW ALL THE BOOKS -->
 <div id="bookshelf">
-	<div id = "grid1">
-		<h2 style = "text-align: center;"> My Books </h2>
-		<div class="row" style="margin: 15px;">
-		  <div class="column" style="text-align: center;">
-			<img id = "photo1" src="/htmlfiles/orwell.jpg" alt="Snow" style="width:175px; max-height: 275px;"> 
-		  </div>
-		  <div class="column" style="text-align: center;">
-			<img id = "photo2" src="/htmlfiles/lordofrings.jpg" alt="Forest" style="width:175px; max-height: 275px;">
-		  </div>
-		  <div class="column" style="text-align: center;">
-			<div class = "imgthree">
-			  <img id = "photo3" src="/htmlfiles/mockingbird.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
-			  <button class="btn" id = "fiction" onclick = "showbooks()">
-				  More!
-			  </button>
-			</div>
-		  </div>
-		</div>
-	  </div>
+<button class="btn" onclick = "showbooks()">
+	Click to get book links in console
+</button>
 </div>
+
+
 	<script>
 	let uid = getCookie('username')
       if (uid) {
@@ -191,7 +180,6 @@
 				  $('#bookshelf').css({"display": "block"})
                   document.getElementById('uid').innerHTML = document.getElementById('uname').value;
                 } else if (this.responseText === 'false') {
-                    console.log("false");
                     document.getElementById("faillogin").innerHTML = "Password or Username incorrect. Try again.";
                 }
               }
@@ -207,54 +195,14 @@
 
           xhreq.onreadystatechange = function() { // Call a function when the state changes.
               if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+				
+			   // ARRAY OF BOOK LINKS FOUND HERE
                console.log(this.responseText)
 		  }
 		}
 	    xhreq.send(`u=${getCookie('username')}`);
-
 		}
-	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //   request = new XMLHttpRequest();
-        //   request.onreadystatechange = function() {
-        //      if (this.readyState == 4 && this.status == 200) {
-		// 		 var data = JSON.parse(this.responseText);
-		// 		 random = 5;
-        //          for (j = random; j < random + 3; j++) {
-        //            var item = data.items[j];
-        //            var booklink = item.selfLink;
-        //            var imageThumb = item.volumeInfo.imageLinks.thumbnail;
-        //            currentphoto = "photo" + k;
-        //            currentbutton = "button" + k;
-        //            document.getElementById(currentphoto).src = imageThumb;
-        //            document.getElementById(currentbutton).link = booklink;
-        //            k++;
-        //          }
-        //          return;        
-        //        }
-        //      }
-        //      request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:${subject}`,
-        //      true);
-        //      request.send();
-        //  }
 	</script>
 	
 </body>
