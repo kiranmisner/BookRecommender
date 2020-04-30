@@ -97,14 +97,14 @@
   </div>
 
 <!-- SOMEONE STYLE THIS PLS    -->
-<div id="loggedout">
+<div id="loggedout" style="text-align: center">
 	You are not logged in. Please log in or sign up to view and manage your bookshelf!
 </div>
 
 <!-- REMOVE THE BUTTON AND USE THE CODE TO GET THE LINKS AND SHOW ALL THE BOOKS -->
 <div id="bookshelf">
 <button class="btn" onclick = "showbooks()">
-	Click to get book links in console
+	Click to show your bookshelf!
 </button>
 </div>
 
@@ -198,6 +198,27 @@
 				
 			   // ARRAY OF BOOK LINKS FOUND HERE
                console.log(this.responseText)
+               var books = this.responseText;
+               var i = 0;
+               while (i != books.length) {
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                  if (request.readyState == 4 && request.status == 200) {
+                    var info = request.responseText;
+                    var item = info.items[0];
+                    var title = item.volumeInfo.title;
+                    var author = item.volumeInfo.authors;
+                    var genre = item.volumeInfo.categories;
+                    var description = item.volumeInfo.description;  
+                    var readOnline = item.accessInfo.webReaderLink;
+                    document.getElementById('bookshelf').innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
+                  }
+                }
+
+                request.open("GET", `${books[i]}`, true);
+                request.send();
+                i++;
+               }
 		  }
 		}
 	    xhreq.send(`u=${getCookie('username')}`);
