@@ -88,24 +88,41 @@
 	<h1>Sign up here:</h1> 
 	<br> <br>
 	<div class = "text-center">
-			<form method = "GET" action = "http://localhost:8080/" class="border" style="font-size: 20px;">
+			<div class="border" style="font-size: 20px;">
 				Username: <input type="text" name = 'username' id="username" autofocus="autofocus" required> <br> <br>
 				Password: <input type="password" name = 'password' id="password" required> <br> <br>
-				Confirm Password: <input type="password" name = 'confirm' id="confirm" onchange="authenticate()" required> <br> <br>
-				<input type='submit' class="btn btn-primary" value = "Sign up!"> <br>
-			</form>
+				Confirm Password: <input type="password" name = 'confirm' id="confirm"required> <br> <br>
+				<button type = 'submit' class="btn btn-primary" onclick = "signupfunc()"> <p style = "font-size: 20px">Sign up! 
+				</p></button> <br>
+			<div>
 		<div id = "message"> </div>
 	</div>
 	<script lang="javascript">
-		function authenticate() {
-			var password = document.getElementById("password").value;
+		function signupfunc() {
+			var uname = document.getElementById("username").value;
+			var pword = document.getElementById("password").value;
 			var confirm = document.getElementById("confirm").value;
-			var message = document.getElementById("message");
-			if (password == confirm) {
-				message.innerHTML = "Great! You're all signed up. Click here to go to your personalized bookshelf"
-			} else {
-				message.innerHTML = "Your passwords do not match. Make them match before proceeding";
-			}
+			if (pword != confirm) {
+				document.getElementById("message").innerHTML = "Make sure your password match before signing up."
+				return;
+			} 
+			document.getElementById("message").innerHTML = "Welcome " + uname + "! You're all signed up.";
+
+			var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/sign_up', true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() { // Call a function when the state changes.
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                  if (this.responseText === 'true') {
+                    alert("You've signed up!");
+                  } else {
+                  	alert("Oops! Something went wrong... please refresh and try again!");
+                  }
+                }
+             }
+             xhr.send(`u=${uname}&p=${pword}`);
+
+
 		}
 	</script>		
 
