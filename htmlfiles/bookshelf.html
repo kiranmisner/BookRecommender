@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>My Bookshelf</title>
@@ -19,8 +19,21 @@
     		background: #f5f5dc !important;
     	}
 
+    .shelfimg {
+      padding-left: 5%
+    }
+
+  .shelfimg img {
+    vertical-align: top;
+    height: 192px;
+  }
+  
+  .shelfimg span {
+    display: inline-block;
+    padding-left: 2%
+
 		
-	.float-left .btn.loggedin{
+.float-left .btn.loggedin{
     display: none;
     z-index: -1;
   }
@@ -35,7 +48,7 @@
   }
 	</style>
 </head>
-<body>
+<body onload="showbooks()">
 	<!-- nav bar -->
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -95,20 +108,16 @@
 	  </div>
 	</div>
   </div>
-
-<!-- SOMEONE STYLE THIS PLS    -->
 <div id="loggedout" style="text-align: center">
 	You are not logged in. Please log in or sign up to view and manage your bookshelf!
 </div>
-
-<!-- REMOVE THE BUTTON AND USE THE CODE TO GET THE LINKS AND SHOW ALL THE BOOKS -->
+<div id = "bookheader" style = "text-align: center"></div>
 <div id="bookshelf">
-<button class="btn" onclick = "showbooks()">
-	Click to show your bookshelf!
-</button><br>
+<br>
 </div>
-<div id="historical_bookshelf">
-</div>
+<div id = "histheader" style = "text-align: center"></div>
+<div id = "addmess" style="text-align: center; font-style: italic;"> </div>
+<div id="histbook"> </div>
 
 
 	<script>
@@ -144,6 +153,13 @@
 	  }
 	  
 	  function onLogOut() {
+          document.getElementById("histbook").innerHTML = "";
+          document.getElementById("bookheader").innerHTML = "";
+          document.getElementById("histheader").innerHTML = "";
+          document.getElementById("addmess").innerHTML = "";
+          document.getElementById("bookshelf").innerHTML = "";
+          document.getElementById("uid").innerHTML = "Guest";
+
           var xhr = new XMLHttpRequest();
           xhr.open("GET", '/logout', true);
 
@@ -155,9 +171,9 @@
                   $('.float-left .btn').removeClass("loggedin")
                   $('.float-left a').removeClass("loggedin")
                   $('.user-greeting').removeClass("loggedin")
-				  $('#logout').addClass("hidden")
-				  $('#loggedout').css({"display": "block"})
-		  		  $('#bookshelf').css({"display": "none"})
+				          $('#logout').addClass("hidden")
+				          $('#loggedout').css({"display": "block"})
+		  		        $('#bookshelf').css({"display": "none"})
                 } 
           }
           xhr.send();
@@ -177,9 +193,9 @@
                   $('.float-left a').addClass("loggedin")
                   $('.user-greeting').addClass("loggedin")
                   $('#logout').removeClass("hidden")
-				  $('#myModal').modal('hide')
-				  $('#loggedout').css({"display": "none"})
-				  $('#bookshelf').css({"display": "block"})
+				          $('#myModal').modal('hide')
+				          $('#loggedout').css({"display": "none"})
+				          $('#bookshelf').css({"display": "block"})
                   document.getElementById('uid').innerHTML = document.getElementById('uname').value;
                 } else if (this.responseText === 'false') {
                     document.getElementById("faillogin").innerHTML = "Password or Username incorrect. Try again.";
@@ -187,7 +203,11 @@
               }
           }
           xhr.send(`u=${document.getElementById('uname').value}&p=${document.getElementById('psw').value}`);
+        
+          showbooks();
 		 }
+
+
 		 function showbooks() {
 		  var xhreq = new XMLHttpRequest();
           xhreq.open("POST", '/get_bookshelf', true);
@@ -214,23 +234,26 @@
         makeRequest(books[i]);
         i++;
       }
-      document.getElementById('historical_bookshelf').innerHTML += '<br><br><hr><br><br>This is your recommended historical bookshelf!<br>'
       findBooks(getInfo, books[0]);
     }
 
-
     function makeRequest(string) {
+      document.getElementById("bookheader").innerHTML = "<h2> My Bookshelf </h2>"
+      document.getElementById("bookshelf").innerHTML = "";
       var request = new XMLHttpRequest();
                 request.onreadystatechange = function() {
                   if (request.readyState == 4 && request.status == 200) {
                     var info = JSON.parse(request.responseText);
                     console.log(info);
                     var title = info.volumeInfo.title;
+                    console.log(title);
                     var author = info.volumeInfo.authors;
                     var genre = info.volumeInfo.categories;
-                    var description = info.volumeInfo.description;  
+                    var description = info.volumeInfo.description; 
                     var readOnline = info.accessInfo.webReaderLink;
-                    document.getElementById('bookshelf').innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
+                    var imageThumb = info.volumeInfo.imageLinks.thumbnail;
+
+                    document.getElementById('bookshelf').innerHTML += `<div class = "shelfimg"><img src="${imageThumb}"><span><strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre[0]} <br> <u>Find out more here:</u> <a href ="${readOnline}">${readOnline}</a></span><br><br></div>`
                   }
                 }
                 console.log(string);
@@ -262,6 +285,9 @@
 
     function getInfo(genres, book_name)
     {
+      document.getElementById("histheader").innerHTML = "<h2> Our Recommendations for You! </h2>"
+      document.getElementById("addmess").innerHTML = "To add these to your bookshelf, please search them by title on the home page! <br>"
+      // document.getElementById("historical_bookshelf").innerHTML = "";
       request = new XMLHttpRequest();
       console.log("made new callback request");
 
@@ -286,7 +312,10 @@
                         var genre = item.volumeInfo.categories;
                         var description = item.volumeInfo.description;  
                         var readOnline = item.accessInfo.webReaderLink;
-                        document.getElementById("historical_bookshelf").innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
+                        var imageThumb = item.volumeInfo.imageLinks.thumbnail;
+                        document.getElementById('histbook').innerHTML += `<div class = "shelfimg"><img src="${imageThumb}
+                        "><span><strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre[0]} <br> <u>Find out more
+                        here:</u> <a href ="${readOnline}">${readOnline}</a></span><br><br></div>`;
                         i++;
             }
           }
