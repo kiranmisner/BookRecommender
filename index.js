@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 app.use(cookieParser());
+app.use('/pics', express.static(__dirname +'/pics'))
 
 const PORT = process.env.PORT || 3000;
 
