@@ -126,6 +126,23 @@
     z-index: 1;
   }
 
+  .searchheader {
+    padding-left: 5% 
+  }
+
+  .searchimg {
+    padding-left: 5%
+  }
+
+  .searchimg img {
+    vertical-align: top;
+    height: 192px;
+  }
+  
+  .searchimg span {
+    display: inline-block;
+    padding-left: 2%
+  }
 
 </style>
 </head>
@@ -369,6 +386,8 @@
                     var data = JSON.parse(this.responseText);
                     console.log(JSON.stringify(this.responseText));
 
+                document.getElementById("content").innerHTML += `<h2 class = "searchheader"> Search Results </h2>`
+
                 for (let i = 0; i < 5; i++) {
                     var item = data.items[i];
                     console.log(data.items[i])
@@ -377,7 +396,13 @@
                     var genre = item.volumeInfo.categories;
                     var description = item.volumeInfo.description;  
                     var readOnline = item.accessInfo.webReaderLink;
-                    document.getElementById("content").innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
+                    var booklink = item.selfLink;
+                    var imageThumb = item.volumeInfo.imageLinks.thumbnail;
+                    var bookid = "search" + i;
+
+                    document.getElementById("content").innerHTML += `<div class = "searchimg"><img src="${
+                    imageThumb}"><span > <strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Read it online 
+                    here:</u> <a href =${readOnline}">${readOnline}</a> <br> <br> <button id=${bookid} link=${booklink} class = "btn btn-success" onclick = "addtobookshelf(this.id)"> Add to bookshelf</button> </span> <br> <br></div>`
                  }
                 }
             }
@@ -548,7 +573,7 @@
               alert("You do not have an account. Please sign up and sign in before being able to add a book.");
               return;
             }
-            var booklink = document.getElementById(id).link;
+            var booklink = document.getElementById(id).getAttribute("link");
             var xhr = new XMLHttpRequest();
             xhr.open("POST", '/addto', true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");""
