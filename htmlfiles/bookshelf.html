@@ -198,18 +198,25 @@
 				
 			   // ARRAY OF BOOK LINKS FOUND HERE
                console.log(this.responseText);
-               getBooks(increment, this.responseText);
+               getBooks(this.responseText);
 		  }
 		}
 	    xhreq.send(`u=${getCookie('username')}`);
 		}
 
-    function getBooks(callback, data) {
+    function getBooks(data) {
       var books = JSON.parse(data);
                console.log(books.length);
-               var i = new Array(0);
-               while (i[0] != books.length) {
-                var request = new XMLHttpRequest();
+               var i = 0;
+               while (i != books.length) {
+                makeRequest(increment, books);
+                i++;
+              }
+    }
+
+
+    function makeRequest(books, i) {
+      var request = new XMLHttpRequest();
                 request.onreadystatechange = function() {
                   if (request.readyState == 4 && request.status == 200) {
                     var info = JSON.parse(request.responseText);
@@ -220,18 +227,11 @@
                     var description = info.volumeInfo.description;  
                     var readOnline = info.accessInfo.webReaderLink;
                     document.getElementById('bookshelf').innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
-                    callback(i);
                   }
                 }
                 console.log(books[i]);
-                request.open("GET", `${books[i[0]]}`, true);
+                request.open("GET", `${books[i]}`, true);
                 request.send();
-               }
-    }
-
-    function increment(i) {
-      i[0] = i[0] + 1;
-      return;
     }
 
 	</script>
