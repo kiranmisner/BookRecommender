@@ -60,6 +60,10 @@ app.post('/sign_up', (req, res) => {
     console.log("new sign up entered!");
 })
 
+app.get('/my_bookshelf', (req, res) => {
+    res.sendFile(path.join(__dirname, '/htmlfiles/bookshelf.html'));
+})
+
 app.get('/logout', (req, res) => {
     res.clearCookie('username');
     res.send("done")
