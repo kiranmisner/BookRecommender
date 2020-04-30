@@ -131,10 +131,12 @@ app.post('/addto', (req, res) => {
        if (err) {
         res.write("false");
         console.log(err); 
+        res.end()
         return;
        }
        console.log("Added");
        res.write("true");
+       res.end()
     });
   });
 })
