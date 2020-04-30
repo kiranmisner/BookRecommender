@@ -107,6 +107,8 @@
 	Click to show your bookshelf!
 </button><br>
 </div>
+<div id="historical bookshelf">
+</div>
 
 
 	<script>
@@ -206,13 +208,13 @@
 
     function getBooks(data) {
       var books = JSON.parse(data);
-               console.log(books.length);
-               var i = 0;
-               while (i != books.length) {
-                makeRequest(books[i]);
-                i++;
-              }
-      document.getElementById('bookshelf').innerHTML += '<br><br><hr><br><br>This is your recommended historical bookshelf!<br>'
+       console.log(books.length);
+       var i = 0;
+       while (i != books.length) {
+        makeRequest(books[i]);
+        i++;
+      }
+      document.getElementById('historical_bookshelf').innerHTML += '<br><br><hr><br><br>This is your recommended historical bookshelf!<br>'
       findBooks(getInfo, books[0]);
     }
 
