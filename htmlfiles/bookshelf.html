@@ -108,7 +108,6 @@
 </button><br>
 </div>
 <div id="historical_bookshelf">
-  <br><br><hr><br><br>This is your recommended historical bookshelf!<br>
 </div>
 
 
@@ -215,6 +214,7 @@
         makeRequest(books[i]);
         i++;
       }
+      document.getElementById('historical_bookshelf').innerHTML += '<br><br><hr><br><br>This is your recommended historical bookshelf!<br>'
       findBooks(getInfo, books[0]);
     }
 
@@ -286,7 +286,7 @@
                         var genre = item.volumeInfo.categories;
                         var description = item.volumeInfo.description;  
                         var readOnline = item.accessInfo.webReaderLink;
-                        document.getElementById("bookshelf").innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
+                        document.getElementById("historical_bookshelf").innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
                         i++;
             }
           }
