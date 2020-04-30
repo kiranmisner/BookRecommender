@@ -18,15 +18,13 @@ const url = 'mongodb+srv://brogrammer:brogrammer@comp20final-bwg6b.mongodb.net/t
 // Database Name
 const dbName = 'BookRecommender';
 
-const findDocuments = function(db, callback) {
+const findBooks = function(db, callback, name) {
     // Get the documents collection
     const collection = db.collection('Users');
     // Find some documents
-    collection.find({}).toArray(function(err, docs) {
+    collection.find({username: name}).toArray(function(err, docs) {
       if (err) {console.log(err); return;}
-      console.log("Found the following records");
-      console.log(docs)
-      callback(docs);
+      callback(docs[0].bookshelf)
     });
   }
 
@@ -60,26 +58,14 @@ app.post('/sign_up', (req, res) => {
     console.log("new sign up entered!");
 })
 
+app.get('/my_bookshelf', (req, res) => {
+    res.sendFile(path.join(__dirname, '/htmlfiles/bookshelf.html'));
+})
+
 app.get('/logout', (req, res) => {
     res.clearCookie('username');
     res.send("done")
 })
-
-app.get('/mongo', (req, res) => {
-     MongoClient.connect(url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }, function(err, client) {
-        if (err) {console.log(err); return;}
-        console.log("Connected successfully to server");
-        
-        const db = client.db(dbName);
-        findDocuments(db, function(docs) {
-            res.send(docs)
-            client.close()
-        });
-})
-});
 
 app.post('/login', (req, res) => {
 //   res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -127,12 +113,31 @@ app.post('/addto', (req, res) => {
        if (err) {
         res.write("false");
         console.log(err); 
+        res.end()
         return;
        }
        console.log("Added");
        res.write("true");
+       res.end()
     });
   });
 })
+
+app.post('/get_bookshelf', (req, res) => {
+    console.log(req.body);
+    MongoClient.connect(url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }, function(err, client) {
+        if (err) {console.log(err); return;}
+        console.log("Connected successfully to server");
+        
+        const db = client.db(dbName);
+        findBooks(db, function(docs) {
+            res.send(docs)
+            client.close()
+        }, req.body.u);
+    })
+  })
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

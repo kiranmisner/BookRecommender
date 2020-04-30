@@ -137,10 +137,7 @@
       <a class="navbar-brand" href="#">Recommendr</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Recommendr</a></li>
-      <li><a href="#">My BookShelf</a></li>
-      <!-- <li><a href="#">Sign Up</a></li> -->
-      <li><a href="#">Nice one</a></li>
+      <li><a href="/my_bookshelf">My BookShelf</a></li>
     </ul>
     <ul class="nav navbar-nav" style="float: right; padding-top:1%; padding-bottom: 1%">
       <div class = "float-left">
@@ -149,7 +146,7 @@
     <a href="/sign_up" class="btn btn-primary" >
       Signup </a>
     <div style="font-size: large; color: whitesmoke" class="user-greeting"> Hello 
-      <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/bookshelf">User</a> !</div>
+      <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/my_bookshelf">User</a> !</div>
       <button style="display: inline" type="button" class="btn btn-danger hidden" id="logout" onclick="onLogOut()" >
         Logout </button>
       </div>
@@ -201,7 +198,7 @@
 <div class="container h-100">
   <div class="d-flex justify-content-center h-100">
     <div class="searchbar">
-      <input class="search_input" type="text" id="book" placeholder="Enter your bookname..">
+      <input style="width: 95%;" class="search_input" type="text" id="book" placeholder="Enter your bookname..">
           <a href="#" id = "searcher" onclick="callAPI()" class="search_icon">Go!<i class="fas fa-search"></i></a>
     </div>
   </div>
@@ -215,14 +212,14 @@
   <h2 style = "text-align: center;"> Fiction </h2>
   <div class="row" style="margin: 15px;">
     <div class="column" style="text-align: center;">
-      <img id = "photo1" src="orwell.jpg" alt="Snow" style="width:175px; max-height: 275px;"> 
+      <img id = "photo1" src="/htmlfiles/orwell.jpg" alt="Snow" style="width:175px; max-height: 275px;"> 
     </div>
     <div class="column" style="text-align: center;">
-      <img id = "photo2" src="lordofrings.jpg" alt="Forest" style="width:175px; max-height: 275px;">
+      <img id = "photo2" src="/htmlfiles/lordofrings.jpg" alt="Forest" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
       <div class = "imgthree">
-        <img id = "photo3" src="mockingbird.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
+        <img id = "photo3" src="/htmlfiles/mockingbird.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
         <button class="btn" id = "fiction" onclick = "changeset(1,this.id)">
             More!
         </button>
@@ -253,14 +250,14 @@
   <h2 style = "text-align: center;"> Romance </h2>
   <div class="row" style="margin: 15px;">
     <div class="column" style="text-align: center;">
-      <img id = "photo4" src="notebook.jpg" alt="Snow" style="width:175px; max-height: 275px;">
+      <img id = "photo4" src="/htmlfiles/notebook.jpg" alt="Snow" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
-      <img id = "photo5" src="shades.jpg" alt="Forest" style="width:175px; max-height: 275px;">
+      <img id = "photo5" src="/htmlfiles/shades.jpg" alt="Forest" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
       <div class = "imgthree">
-        <img id = "photo6" src="fault.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
+        <img id = "photo6" src="/htmlfiles/fault.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
         <button class="btn" id = "romance" onclick = "changeset(4,this.id)">
             More!
         </button>
@@ -290,14 +287,14 @@
   <h2 style = "text-align: center;"> Mystery </h2>
   <div class="row" style="margin: 15px;">
     <div class="column" style="text-align: center;">
-      <img id = "photo7" src="gonegirl.jpg" alt="Snow" style="width:175px; max-height: 275px;">
+      <img id = "photo7" src="/htmlfiles/gonegirl.jpg" alt="Snow" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
-      <img id = "photo8" src="express.jpg" alt="Forest" style="width:175px; max-height: 275px;">
+      <img id = "photo8" src="/htmlfiles/express.jpg" alt="Forest" style="width:175px; max-height: 275px;">
     </div>
     <div class="column" style="text-align: center;">
       <div class = "imgthree">
-        <img id = "photo9" src="leechild.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
+        <img id = "photo9" src="/htmlfiles/leechild.jpg" alt="Mountains" style="width:175px; max-height: 275px;">
         <button class="btn" id = "mystery" onclick = "changeset(7,this.id)">
             More!
         </button>
@@ -333,7 +330,6 @@
           $('.user-greeting').addClass("loggedin")
           $('#logout').removeClass("hidden")
           document.getElementById('uid').innerHTML = uid
-          document.cookie = '';
       }
 
 

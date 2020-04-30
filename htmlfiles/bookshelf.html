@@ -18,6 +18,21 @@
     		padding: 0;
     		background: #f5f5dc !important;
     	}
+
+		
+	.float-left .btn.loggedin{
+    display: none;
+    z-index: -1;
+  }
+
+  .user-greeting {
+    display: none;
+    z-index: -1;
+  }
+  .user-greeting.loggedin {
+    display: block;
+    z-index: 1;
+  }
 	</style>
 </head>
 <body>
@@ -25,13 +40,11 @@
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Recommendr</a>
+      <a class="navbar-brand" href="/">Recommendr</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">Recommendr</a></li>
       <li class="active"><a href="">My BookShelf</a></li>
       <!-- <li><a href="#">Sign Up</a></li> -->
-      <li><a href="#">Nice one</a></li>
     </ul>
     <ul class="nav navbar-nav" style="float: right; padding-top:1%; padding-bottom: 1%">
       <div class = "float-left">
@@ -39,19 +52,157 @@
 		Login </button>
 		<a href="/sign_up" class="btn btn-primary" >
       Signup </a>
-    <div style="font-size: large; color: whitesmoke" class="user-greeting"> Hello 
-      <a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/bookshelf">User</a> !</div>
-      </div>
+	  <div style="font-size: large; color: whitesmoke" class="user-greeting"> Hello 
+		<a style="display: inline; color: whitesmoke; text-decoration: underline;" id="uid" href="/my_bookshelf">User</a> !</div>
+		<button style="display: inline" type="button" class="btn btn-danger hidden" id="logout" onclick="onLogOut()" >
+		  Logout </button>
+		</div>
     </ul>
   </div>
 </nav>
 
-	<div>Add a book to your bookshelf here (please use the ISBN number):</div>
-	<input type="text" id="book" placeholder="ISBN number">
-	<button type="button" name="submit" onclick="addBook()">Submit</button>
+<div class="modal" id="myModal">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+  
+			<!-- Modal Header -->
+			<div class="modal-header">
+			  <h4 class="modal-title" style = "text-align: center"> Login</h4>
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+  
+		  <!-- Modal body -->
+		  <div class="modal-body">
+				  <div class="container">
+				  <form action = "/">
+					  <label for="uname"><b>Username</b></label>
+					  <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+					  <br>
+  
+					  <label for="psw"><b>Password</b></label>
+					  <input type="password" placeholder="Enter Password" name="psw" id="psw" required> <br>
+					  <div id = "faillogin" style="color:red"></div>
+					  <button type="button" onclick="onLogin()">Login</button> <br>
+				  </form>
+				</div>
+		  </div>
+  
+		<!-- Modal footer -->
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		</div>
+  
+	  </div>
+	</div>
+  </div>
 
-	<script language="javascript">
-		/* was gonna have a function to access database and add books here */
+<!-- SOMEONE STYLE THIS PLS    -->
+<div id="loggedout">
+	You are not logged in. Please log in or sign up to view and manage your bookshelf!
+</div>
+
+<!-- REMOVE THE BUTTON AND USE THE CODE TO GET THE LINKS AND SHOW ALL THE BOOKS -->
+<div id="bookshelf">
+<button class="btn" onclick = "showbooks()">
+	Click to get book links in console
+</button>
+</div>
+
+
+	<script>
+	let uid = getCookie('username')
+      if (uid) {
+          $('.float-left .btn').addClass("loggedin")
+          $('.float-left a').addClass("loggedin")
+          $('.user-greeting').addClass("loggedin")
+		  $('#logout').removeClass("hidden")
+		  $('#loggedout').css({"display": "none"})
+		  $('#bookshelf').css({"display": "block"})
+          document.getElementById('uid').innerHTML = uid
+	  }
+
+	  else {
+		$('#loggedout').css({"display": "block"})
+		  $('#bookshelf').css({"display": "none"})
+	  }
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+	  }
+	  
+	  function onLogOut() {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", '/logout', true);
+
+          //Send the proper header information along with the request
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+          xhr.onreadystatechange = function() { // Call a function when the state changes.
+              if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                  $('.float-left .btn').removeClass("loggedin")
+                  $('.float-left a').removeClass("loggedin")
+                  $('.user-greeting').removeClass("loggedin")
+				  $('#logout').addClass("hidden")
+				  $('#loggedout').css({"display": "block"})
+		  		  $('#bookshelf').css({"display": "none"})
+                } 
+          }
+          xhr.send();
+		 }
+		 
+		 function onLogin() {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", '/login', true);
+
+          //Send the proper header information along with the request
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+          xhr.onreadystatechange = function() { // Call a function when the state changes.
+              if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                if(this.responseText === 'true') {
+                  $('.float-left .btn').addClass("loggedin")
+                  $('.float-left a').addClass("loggedin")
+                  $('.user-greeting').addClass("loggedin")
+                  $('#logout').removeClass("hidden")
+				  $('#myModal').modal('hide')
+				  $('#loggedout').css({"display": "none"})
+				  $('#bookshelf').css({"display": "block"})
+                  document.getElementById('uid').innerHTML = document.getElementById('uname').value;
+                } else if (this.responseText === 'false') {
+                    document.getElementById("faillogin").innerHTML = "Password or Username incorrect. Try again.";
+                }
+              }
+          }
+          xhr.send(`u=${document.getElementById('uname').value}&p=${document.getElementById('psw').value}`);
+		 }
+		 function showbooks() {
+		  var xhreq = new XMLHttpRequest();
+          xhreq.open("POST", '/get_bookshelf', true);
+
+          //Send the proper header information along with the request
+          xhreq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+          xhreq.onreadystatechange = function() { // Call a function when the state changes.
+              if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+				
+			   // ARRAY OF BOOK LINKS FOUND HERE
+               console.log(this.responseText)
+		  }
+		}
+	    xhreq.send(`u=${getCookie('username')}`);
+		}
+
 	</script>
 	
 </body>
