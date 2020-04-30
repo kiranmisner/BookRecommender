@@ -197,8 +197,9 @@
               if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
 				
 			   // ARRAY OF BOOK LINKS FOUND HERE
-               console.log(this.responseText)
+               console.log(this.responseText);
                var books = this.responseText;
+               console.log(books.length);
                var i = 0;
                while (i != books.length) {
                 var request = new XMLHttpRequest();
@@ -214,7 +215,7 @@
                     document.getElementById('bookshelf').innerHTML += `<strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Synopsis:</u> ${description} <br> <u>Read it online here:</u> <a href ="${readOnline}">${readOnline}</a> <br><br>`
                   }
                 }
-
+                console.log(books[i]);
                 request.open("GET", `${books[i]}`, true);
                 request.send();
                 i++;
