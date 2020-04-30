@@ -131,6 +131,10 @@
 			var uname = document.getElementById("username").value;
 			var pword = document.getElementById("password").value;
 			var confirm = document.getElementById("confirm").value;
+			if (uname == "" || pword == "" || confirm == "") {
+				document.getElementById("message").innerHTML = "All three fields must be filled beforing signing up."
+				return;
+			}
 			if (pword != confirm) {
 				document.getElementById("message").innerHTML = "Make sure your password match before signing up."
 				return;
