@@ -258,7 +258,7 @@
                     var readOnline = info.accessInfo.webReaderLink;
                     var imageThumb = info.volumeInfo.imageLinks.thumbnail;
 
-                    document.getElementById('bookshelf').innerHTML += `<div class = "shelfimg"><img src="${imageThumb}"><span><strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre[0]} <br> <u>Find out more here:</u> <a href ="${readOnline}">${readOnline}</a></span><br><br></div>`
+                    document.getElementById('bookshelf').innerHTML += `<div class = "shelfimg"><img src="${imageThumb}"><span><strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Find out more here:</u> <a href ="${readOnline}">${readOnline}</a></span><br><br></div>`
                   }
                 }
                 console.log(string);
@@ -276,9 +276,6 @@
           var data = JSON.parse(this.responseText);
           var genre = data.volumeInfo.categories;
           var title = data.volumeInfo.title;
-          console.log("genres received");
-          console.log("genre is: " + genre[0]);
-
           callback(genre, title);
         }
 
@@ -317,9 +314,14 @@
                         var genre = item.volumeInfo.categories;
                         var description = item.volumeInfo.description;  
                         var readOnline = item.accessInfo.webReaderLink;
-                        var imageThumb = item.volumeInfo.imageLinks.thumbnail;
+                        if (!item.volumeInfo.imageLinks) {
+                          console.log("undefined");
+                          var imageThumb = "http://comp20-recommendr.herokuapp.com/pics/noimagefound.png";
+                        } else {
+                          var imageThumb = item.volumeInfo.imageLinks.thumbnail;
+                        };
                         document.getElementById('histbook').innerHTML += `<div class = "shelfimg"><img src="${imageThumb}
-                        "><span><strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre[0]} <br> <u>Find out more
+                        "><span><strong>${title} by ${author}</strong> <br> <u>Genre:</u> ${genre} <br> <u>Find out more
                         here:</u> <a href ="${readOnline}">${readOnline}</a></span><br><br></div>`;
                         i++;
             }
@@ -327,7 +329,7 @@
         }
       }
 
-      request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=${genres[0]}&maxResults=40`, true);
+      request.open("GET", `https://www.googleapis.com/books/v1/volumes?q=${genres}&maxResults=40`, true);
       request.send();
     }
 
